@@ -1,26 +1,13 @@
-import express from 'express';
 import { connectDatabase } from './config/database.js';
-
-const app = express();
-const PORT = Number(process.env.PORT) || 8000;
-
-app.use(express.json());
-
-app.get('/api/health', (_req, res) => {
-  res.json({
-    status: 'ok',
-    service: 'octofit-backend',
-    port: PORT,
-  });
-});
+import app, { baseUrl, PORT } from './server.js';
 
 connectDatabase()
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`OctoFit API running on http://localhost:${PORT}`);
+      console.log(`OctoFit API running at ${baseUrl}`);
     });
   })
   .catch((error) => {
     console.error('Unable to start server:', error);
-    process.exit(1);
+    process.exitCode = 1;
   });
