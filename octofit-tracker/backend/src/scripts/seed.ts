@@ -1,20 +1,10 @@
-import mongoose from 'mongoose';
+import { connectDatabase } from '../config/database.js';
 
-const connectionString = process.env.MONGODB_URI || 'mongodb://localhost:27017/octofit_db';
-
-/**
- * Seed the octofit_db database with test data
- */
 async function seedDatabase() {
   try {
-    await mongoose.connect(connectionString);
-
-    console.log('Connected to octofit_db');
-
-    // TODO: Add seed data for users, teams, activities, leaderboard, and workouts
-
+    await connectDatabase();
     console.log('Database seeding complete');
-    await mongoose.disconnect();
+    process.exit(0);
   } catch (error) {
     console.error('Error seeding database:', error);
     process.exit(1);
