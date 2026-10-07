@@ -36,6 +36,14 @@ app.use((request, response, next) => {
   next();
 });
 
+app.get('/', (_request, response) => {
+  response.json({
+    service: 'octofit-backend',
+    status: 'ok',
+    health: '/api/health',
+  });
+});
+
 app.get('/api/health', (_request, response) => {
   response.json({
     status: 'ok',
